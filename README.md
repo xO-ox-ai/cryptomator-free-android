@@ -2,51 +2,46 @@
 
 # Cryptomator Free
 
-**非官方、独立维护的开源修改版。与 Cryptomator / Skymatic 官方无隶属关系，未获其背书，也不由官方提供支持。**
+**English** | [简体中文](README.zh-CN.md)
 
 **An independent, unofficial fork. Not affiliated with, endorsed by, or supported by Cryptomator, Skymatic, or the upstream maintainers.**
 
-Cryptomator Free 为 Android 提供永久开放读写的加密保险库，支持本地目录、WebDAV 和 S3。无需购买应用授权、订阅或启动试用。上游加密实现和保险库格式未改动。
+Cryptomator Free provides permanent read/write access to encrypted vaults on Android, with support for local folders, WebDAV, and S3. No app license, subscription, or trial is required. The upstream encryption implementation and vault format are unchanged.
 
-首个版本为 **0.1.0 预览版**，基于 **Cryptomator Android 2.2.0-SNAPSHOT** 开发代码，准确提交为 [4ebaeb9a3a03929eaf2b6aabfbffef5a5b933756](https://github.com/cryptomator/android/commit/4ebaeb9a3a03929eaf2b6aabfbffef5a5b933756)（2026-11-05），比上游 2.1.0 标签多 70 次提交。**这不是官方 2.2.0 正式版。** 完整来源和修改记录见 [UPSTREAM.md](UPSTREAM.md)。
+The first release is **0.1.0 preview**, based on the **Cryptomator Android 2.2.0-SNAPSHOT** development code at commit [4ebaeb9a3a03929eaf2b6aabfbffef5a5b933756](https://github.com/cryptomator/android/commit/4ebaeb9a3a03929eaf2b6aabfbffef5a5b933756), dated 2026-11-05, 70 commits after upstream tag 2.1.0. **This is not an official stable 2.2.0 release.** See [UPSTREAM.md](UPSTREAM.md) for the exact baseline and modification history.
 
-## 下载与安装
+## Download and install
 
-- [Releases：APK、对应源码与 SHA-256 校验值](https://github.com/xO-ox-ai/cryptomator-free-android/releases)
-- Android 8.0 或更高版本。
-- 应用名称：**Cryptomator Free**。
-- 包名：`io.github.xooxai.cryptomatorfree.lite`，可与官方版并存。
-- 使用本 fork 独立的发行签名，无法覆盖官方版或早先的 Cryptomator Community 调试测试包。
+- [Releases: APK, corresponding source, and SHA-256 checksums](https://github.com/xO-ox-ai/cryptomator-free-android/releases).
+- Requires Android 8.0 or later.
+- Application name: **Cryptomator Free**.
+- Package: `io.github.xooxai.cryptomatorfree.lite`; it can coexist with the official app.
+- Signed with this fork's independent release key. It cannot replace the official app or the earlier Cryptomator Community debug test build.
 
-当前 APK 使用 Lite 功能集，包含**本地目录、WebDAV、S3**，其中包含的功能均永久开放读写。Dropbox、Google Drive、OneDrive、SharePoint、pCloud、Box 等集成未包含在这个 APK 中。
+The current APK uses the Lite feature set: **local folders, WebDAV, and S3**, with permanent read/write access to all included features. It does not include the Dropbox, Google Drive, OneDrive, SharePoint, pCloud, or Box integrations.
 
-## 离线使用与 Nextcloud
+## Offline use and Nextcloud
 
-在手机文件管理器中新建一个目录，例如 `Documents/Cryptomator-Free`，再在应用的“本地存储”中选择它。你可以新建保险库，或复制**完整的已有加密保险库**后添加并解锁，离线导入、查看、修改文件。
+Create a folder on the phone, such as `Documents/Cryptomator-Free`, then select it through **Local storage** in the app. Create a new vault there, or copy an **entire existing encrypted vault** into the folder and add it to the app. You can then import, view, and edit files offline after unlocking the vault.
 
-需要同步时，同步**整个加密保险库目录**，包括配置、主密钥文件和 `d` 目录。不要把解锁后向外部应用提供的明文入口设为云同步源。建议同步完成后再换设备编辑，避免文件冲突。
+When synchronizing, sync the **entire encrypted vault directory**, including its configuration, masterkey file, and `d` directory. Do not use the decrypted file entry exposed to other apps as a cloud sync source. Finish syncing before editing on another device to reduce conflicts.
 
-Nextcloud 安卓版的“自动上传”不等同于桌面端完整的双向文件夹同步。修改、重命名、删除、远端更新和后台运行都应在你的设备上验证。当前版本不支持在 Nextcloud 中直接点击加密文件并自动解密预览；应从 Cryptomator Free 或它提供的 Android 系统文件入口打开文件。
+Nextcloud Android's automatic upload feature is not equivalent to the desktop client's complete two-way folder synchronization. Verify modifications, renames, deletions, remote updates, and background operation on your device. This version cannot decrypt and preview encrypted files directly from Nextcloud; open them in Cryptomator Free or through its Android system file-provider entry.
 
-## 本 fork 的修改
+## Changes in this fork
 
-- 免费构建永久获得读写权限，试用到期不再限制操作；不生成或伪造官方许可证。
-- 跳过购买和试用引导，停用购买服务、官方促销和官方 APK 自动更新。
-- 使用新图标和独立包名、签名；首次启动页和设置明确显示非官方说明与上游提交。
-- 保留原作者版权、开源许可证、依赖声明和保险库格式。
+- Permanent read/write access in free builds, including after trial expiration; no official license is generated or forged.
+- Purchase and trial onboarding, billing services, official promotions, and official APK self-updates are disabled.
+- New artwork, an independent package and signing key, and explicit unofficial-fork notices in the welcome screen and settings.
+- Help links point to this fork; log sharing does not prefill the upstream support email.
+- Original copyrights, licenses, dependency attribution, and the vault format are preserved.
 
-编译及签名见 [BUILDING.md](BUILDING.md)。本 fork 的界面和许可证行为修改于 **2026-11-10**。这是预览版本：本地编译、相关单元测试、APK 签名和安装包结构已验证，**尚未完成安卓真机及 Nextcloud 同步测试，也未接受独立安全审计**。
+See [BUILDING.md](BUILDING.md) for build and signing instructions. The fork's interface and access-control changes were made on **2026-11-10**. This is a preview: the local build, relevant unit tests, APK signature, and package structure have been verified, and the GitHub build has passed. **Android device testing and Nextcloud synchronization testing remain outstanding; the fork has not received an independent security audit.**
 
-## English
+## Licenses, attribution, and support
 
-Cryptomator Free provides permanent read/write access to encrypted vaults on Android. The initial APK supports local folders, WebDAV, and S3. It does not require an app license, subscription, or trial. Encryption and the vault format are inherited unchanged from the exact upstream baseline documented in [UPSTREAM.md](UPSTREAM.md).
+The upstream project is dual-licensed under GPLv3 and a separate commercial option. This fork uses the open-source licensing path and preserves the [GPLv3 license](LICENSE.txt) and upstream history. CryptoLib 2.2.0 is licensed under **AGPLv3**; other dependencies retain their own license requirements. See [THIRD_PARTY.md](THIRD_PARTY.md) and the in-app license screen. New code and original artwork are provided under GPLv3 without replacing dependency license terms.
 
-Version 0.1.0 is a preview based on upstream **2.2.0-SNAPSHOT**, not an official stable release. Install it alongside the official app using package `io.github.xooxai.cryptomatorfree.lite`. The fork has its own artwork, package identity, signing key, issue tracker, and release channel. Read [BUILDING.md](BUILDING.md) to build from source. Device testing is still needed.
+The Cryptomator name identifies the upstream origin and file-format compatibility; no official trademark permission or endorsement is claimed. Original authors retain copyright in their work. The original project README is preserved in [docs/UPSTREAM-README.md](docs/UPSTREAM-README.md).
 
-## 许可证、归属与支持
-
-原项目采用 GPLv3 / 商业双重许可；本 fork 使用开源许可路径，保留 [GPLv3 原文](LICENSE.txt) 和上游历史。CryptoLib 2.2.0 使用 **AGPLv3**；还需遵守各依赖的许可证，见 [THIRD_PARTY.md](THIRD_PARTY.md) 及应用内许可证页面。新增代码和原创图标以 GPLv3 提供，但不替代依赖库的许可条件。
-
-Cryptomator 名称用于标明项目来源和格式兼容性，不代表获得官方商标授权或背书。原作者保留其作品版权。原项目说明保存在 [docs/UPSTREAM-README.md](docs/UPSTREAM-README.md)。
-
-请在[本仓库 Issues](https://github.com/xO-ox-ai/cryptomator-free-android/issues)反馈本 fork 的问题，勿向官方支持团队提交本 fork 的故障。感谢 [Cryptomator 原作者及贡献者](https://github.com/cryptomator/android/graphs/contributors)；你也可以[支持上游项目](https://cryptomator.org/)。
+Report fork-specific problems in [this repository's Issues](https://github.com/xO-ox-ai/cryptomator-free-android/issues), rather than contacting the upstream support team about this modified version. Thanks to the [Cryptomator authors and contributors](https://github.com/cryptomator/android/graphs/contributors). You can also [support the upstream project](https://cryptomator.org/).
