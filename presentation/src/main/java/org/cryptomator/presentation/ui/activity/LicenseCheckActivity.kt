@@ -58,6 +58,10 @@ class LicenseCheckActivity : BaseActivity<ActivityLicenseCheckBinding>(ActivityL
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+		if (FlavorConfig.isFreeBuild) {
+			finish()
+			return
+		}
 		binding.activityRootView.setOnFilteredTouchEventForSecurityListener(object : ObscuredAwareCoordinatorLayout.Listener {
 			override fun onFilteredTouchEventForSecurity() {
 				licenseCheckPresenter.onFilteredTouchEventForSecurity()
@@ -90,6 +94,9 @@ class LicenseCheckActivity : BaseActivity<ActivityLicenseCheckBinding>(ActivityL
 	}
 
 	private fun rebindForIntent() {
+		if (FlavorConfig.isFreeBuild) {
+			return
+		}
 		lockedAction = LicenseEnforcer.LockedAction.fromName(licenseCheckIntent.lockedAction())
 		setSupportActionBar(binding.mtToolbar.toolbar)
 		supportActionBar?.setDisplayHomeAsUpEnabled(true)

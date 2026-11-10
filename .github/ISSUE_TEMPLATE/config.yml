@@ -1,8 +1,8 @@
-blank_issues_enabled: false
+blank_issues_enabled: true
 contact_links:
-  - name: Help & Support
-    url: https://community.cryptomator.org/
-    about: You will find answers in our community forum
-  - name: User Manual
+  - name: Unofficial fork and upstream baseline
+    url: https://github.com/xO-ox-ai/cryptomator-free-android/blob/free/UPSTREAM.md
+    about: Read the source, modification, and unofficial-version notice.
+  - name: Upstream documentation (reference only)
     url: https://docs.cryptomator.org/
-    about: Read the Cryptomator documentation here
+    about: Upstream documentation may describe features or licensing that differ from this fork.

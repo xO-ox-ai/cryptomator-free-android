@@ -40,6 +40,9 @@ build/
 
 # Local configuration file (sdk path, etc)
 local.properties
+signing.properties
+*.jks
+*.p12
 
 # fastlane
 **/fastlane/.env

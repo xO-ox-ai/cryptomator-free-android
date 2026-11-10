@@ -31,6 +31,7 @@ class LicenseEnforcerTest {
 
 	@BeforeEach
 	fun setUp() {
+		assumeTrue(!FlavorConfig.isFreeBuild, "Covered by FreeBuildLicenseEnforcerTest in community builds")
 		licenseEnforcer = LicenseEnforcer(sharedPreferencesHandler)
 	}
 

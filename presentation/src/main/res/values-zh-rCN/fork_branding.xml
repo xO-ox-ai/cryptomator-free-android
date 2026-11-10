@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="fork_intro_body">Cryptomator Free 使用 Cryptomator 保险库格式保护你的文件。\n\n支持本地目录、WebDAV 和 S3，永久开放读写，无需试用、订阅或授权密钥。</string>
+	<string name="fork_website_title">Cryptomator Free 项目主页</string>
+	<string name="fork_about_title">关于 Cryptomator Free</string>
+	<string name="fork_unofficial_title">非官方、独立维护的修改版</string>
+	<string name="fork_unofficial_notice">Cryptomator Free 0.1.0 基于 Cryptomator Android 2.2.0-SNAPSHOT（提交 4ebaeb9a，2026-11-05）修改，永久开放读写。本项目与 Cryptomator 或 Skymatic 官方无隶属关系，未获官方背书，也不由官方提供支持。当前为预览版本。</string>
+	<string name="fork_upstream_title">上游：Cryptomator Android</string>
+	<string name="fork_source_title">Cryptomator Free 源代码</string>
+</resources>

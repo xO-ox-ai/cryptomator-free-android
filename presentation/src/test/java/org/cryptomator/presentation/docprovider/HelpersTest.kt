@@ -137,7 +137,7 @@ class HelpersTest {
 
 	@Test
 	fun `a vault is read-only once the trial expired without a license, every change is refused, and the app still tells the user`() {
-		assumeTrue(!FlavorConfig.isPremiumFlavor, "Licensing logic is bypassed on this flavor")
+		assumeTrue(!FlavorConfig.hasFullAccess, "Licensing logic is bypassed on this flavor")
 		givenLicense(trialExpiration = System.currentTimeMillis() - 1000)
 		val path = vaultPath()
 
@@ -155,7 +155,7 @@ class HelpersTest {
 
 	@Test
 	fun `a Hub vault is writable with the paid Hub license its unlock found, without one only with a license of the app`() {
-		assumeTrue(!FlavorConfig.isPremiumFlavor, "Licensing logic is bypassed on this flavor")
+		assumeTrue(!FlavorConfig.hasFullAccess, "Licensing logic is bypassed on this flavor")
 		givenLicense()
 		// like a vault the repository loads, which doesn't know about Hub
 		val stored = vaultPath().vault
@@ -167,6 +167,17 @@ class HelpersTest {
 		assertFalse(isWritable(stored, licenseEnforcer, locked))
 		givenLicense(token = "token")
 		assertTrue(isWritable(stored, licenseEnforcer) { unpaid })
+	}
+
+	@Test
+	fun `community documents remain writable after trial expiration without a license`() {
+		assumeTrue(FlavorConfig.isFreeBuild)
+		givenLicense(trialExpiration = 1L)
+		val path = vaultPath()
+
+		assertTrue(isWritable(path.vault, licenseEnforcer, locked))
+		assertSame(path, requireWritable(path, licenseEnforcer, locked))
+		verify(sharedPreferencesHandler, never()).setTrialExpired(any())
 	}
 
 	@Test

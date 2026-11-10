@@ -82,7 +82,7 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 		applicationComponent.vaultDocumentEvents().addListener(CryptomatorDocumentsProvider.ChangeNotifier(contentResolver) { applicationComponent.documentMetadataCache() })
 		launchServices()
 		registerActivityLifecycleCallbacks(serviceNotifier)
-		if (FlavorConfig.isFreemiumFlavor) {
+		if (FlavorConfig.isFreemiumFlavor && !FlavorConfig.isFreeBuild) {
 			registerActivityLifecycleCallbacks(PurchaseRevokedToastObserver(sharedPreferencesHandler))
 		}
 		AppCompatDelegate.setDefaultNightMode(sharedPreferencesHandler.screenStyleMode)
@@ -129,7 +129,7 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 	}
 
 	private fun startIapBillingService() {
-		if (!FlavorConfig.isFreemiumFlavor) {
+		if (FlavorConfig.isFreeBuild || !FlavorConfig.isFreemiumFlavor) {
 			Timber.tag("App").d("IAP billing service skipped for flavor %s", BuildConfig.FLAVOR)
 			return
 		}
@@ -150,13 +150,13 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 	}
 
 	fun launchPurchaseFlow(activity: WeakReference<Activity>, productId: String) {
-		if (FlavorConfig.isFreemiumFlavor) {
+		if (FlavorConfig.isFreemiumFlavor && !FlavorConfig.isFreeBuild) {
 			iapBillingServiceBinder?.startPurchaseFlow(activity, productId)
 		}
 	}
 
 	fun queryProductDetails(callback: (List<ProductInfo>) -> Unit) {
-		if (!FlavorConfig.isFreemiumFlavor) {
+		if (FlavorConfig.isFreeBuild || !FlavorConfig.isFreemiumFlavor) {
 			callback(emptyList())
 			return
 		}
@@ -173,7 +173,7 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 	}
 
 	fun restorePurchases(onComplete: (RestoreOutcome) -> Unit = {}) {
-		if (!FlavorConfig.isFreemiumFlavor) {
+		if (FlavorConfig.isFreeBuild || !FlavorConfig.isFreemiumFlavor) {
 			onComplete(RestoreOutcome.NOTHING_TO_RESTORE)
 			return
 		}
@@ -280,7 +280,7 @@ class CryptomatorApp : Application(), HasComponent<ApplicationComponent> {
 			// intra-app navigation, so the counter never transiently hits 0 on screen transitions.
 			val newCount = startedActivities.incrementAndGet()
 			updateService(newCount)
-			if (newCount == 1 && FlavorConfig.isFreemiumFlavor) {
+			if (newCount == 1 && FlavorConfig.isFreemiumFlavor && !FlavorConfig.isFreeBuild) {
 				// Refresh purchases on background→foreground so a refund or lapsed subscription is detected.
 				// The coordinator persists revoke state via SharedPreferences; PurchaseRevokedToastObserver picks it up
 				// on the next activity resume. Outcome is ignored here because auto-refresh only drives the revoke toast.

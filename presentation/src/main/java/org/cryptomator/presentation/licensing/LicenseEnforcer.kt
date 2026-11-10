@@ -41,11 +41,14 @@ class LicenseEnforcer @Inject constructor(private val sharedPreferencesHandler: 
 	}
 
 	fun hasPaidLicense() =
-		FlavorConfig.isPremiumFlavor ||
+		FlavorConfig.hasFullAccess ||
 			sharedPreferencesHandler.licenseToken().isNotEmpty() ||
 			sharedPreferencesHandler.hasRunningSubscription()
 
 	fun startTrial() {
+		if (FlavorConfig.isFreeBuild) {
+			return
+		}
 		if (sharedPreferencesHandler.trialExpirationDate() > 0) {
 			return
 		}
@@ -56,6 +59,9 @@ class LicenseEnforcer @Inject constructor(private val sharedPreferencesHandler: 
 	fun hasActiveTrial(): Boolean = evaluateTrialState().isActive
 
 	fun evaluateTrialState(): TrialState {
+		if (FlavorConfig.isFreeBuild) {
+			return TrialState(false, false, null)
+		}
 		val state = readTrialState()
 		if (state.isExpired && !sharedPreferencesHandler.isTrialExpired()) {
 			sharedPreferencesHandler.setTrialExpired(true)

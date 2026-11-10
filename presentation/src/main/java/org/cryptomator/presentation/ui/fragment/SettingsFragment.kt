@@ -174,7 +174,7 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 		val licensePref = findPreference(SharedPreferencesHandler.MAIL) as Preference?
 		licensePref?.isEnabled = true
 		when {
-			FlavorConfig.isPremiumFlavor -> {
+			FlavorConfig.hasFullAccess -> {
 				licensePref?.let { pref ->
 					pref.title = getString(R.string.screen_settings_license_title_unlocked)
 					pref.summary = getString(R.string.screen_settings_license_summary_write_access)
@@ -296,7 +296,7 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 	}
 
 	private fun setupCryptomatorVariants() {
-		if (FlavorConfig.isPremiumFlavor || FlavorConfig.isFreemiumFlavor || FlavorConfig.isAccrescentFlavor) {
+		if (FlavorConfig.hasFullAccess || FlavorConfig.isFreemiumFlavor || FlavorConfig.isAccrescentFlavor) {
 			(findPreference(CRYPTOMATOR_VARIANTS) as Preference?)?.let { preference ->
 				(findPreference(getString(R.string.screen_settings_section_general)) as PreferenceCategory?)?.removePreference(preference)
 			}
@@ -320,7 +320,7 @@ class SettingsFragment : PreferenceFragmentCompatLayout() {
 
 		(findPreference(SharedPreferencesHandler.CLOUD_SETTINGS) as Preference?)?.intent = Intent(context, CloudSettingsActivity::class.java)
 		(findPreference(SharedPreferencesHandler.BIOMETRIC_AUTHENTICATION) as Preference?)?.intent = Intent(context, BiometricAuthSettingsActivity::class.java)
-		if (!FlavorConfig.isPremiumFlavor) {
+		if (!FlavorConfig.hasFullAccess) {
 			(findPreference(SharedPreferencesHandler.CRYPTOMATOR_VARIANTS) as Preference?)?.intent = Intent(context, CryptomatorVariantsActivity::class.java)
 		}
 		(findPreference(SharedPreferencesHandler.PHOTO_UPLOAD_VAULT) as Preference?)?.intent = Intent(context, AutoUploadChooseVaultActivity::class.java)

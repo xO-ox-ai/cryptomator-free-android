@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 108 108">
+  <title>Cryptomator Free — independent, unofficial fork</title>
+  <rect width="108" height="108" rx="24" fill="#0C2232"/>
+  <path d="M54,24 L78,34 L75,60 C72,73 63,81 54,86 C45,81 36,73 33,60 L30,34 Z" fill="#143D49" stroke="#5CE0BC" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M45,39 L65,39 L65,45 L51,45 L51,52 L63,52 L63,58 L51,58 L51,71 L45,71 Z" fill="#F5FBFF"/>
+</svg>

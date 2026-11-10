@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
 import android.widget.Toast
+import androidx.core.content.FileProvider
 import com.google.common.base.Optional
 import org.cryptomator.data.util.NetworkConnectionCheck
 import org.cryptomator.domain.di.PerView
@@ -29,7 +30,6 @@ import org.cryptomator.presentation.ui.activity.view.SettingsView
 import org.cryptomator.presentation.ui.dialog.AskIgnoreBatteryOptimizationsDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppAvailableDialog
 import org.cryptomator.presentation.ui.dialog.UpdateAppDialog
-import org.cryptomator.presentation.util.EmailBuilder
 import org.cryptomator.presentation.util.FileUtil
 import org.cryptomator.presentation.workflow.PermissionsResult
 import org.cryptomator.util.SharedPreferencesHandler
@@ -71,12 +71,15 @@ class SettingsPresenter @Inject internal constructor(
 	}
 
 	private fun sendErrorReport(attachment: File) {
-		EmailBuilder.anEmail() //
-			.to("support@cryptomator.org") //
-			.withSubject(context().getString(R.string.error_report_subject)) //
-			.withBody(errorReportEmailBody()) //
-			.attach(attachment) //
-			.send(activity())
+		val reportUri = FileProvider.getUriForFile(context(), context().packageName + ".fileprovider", attachment)
+		val share = Intent(Intent.ACTION_SEND).apply {
+			type = "application/zip"
+			putExtra(Intent.EXTRA_SUBJECT, "Cryptomator Free error report (unofficial)")
+			putExtra(Intent.EXTRA_TEXT, errorReportEmailBody())
+			putExtra(Intent.EXTRA_STREAM, reportUri)
+			addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+		}
+		activity().startActivity(Intent.createChooser(share, context().getString(R.string.screen_settings_error_report_label)))
 	}
 
 	private fun errorReportEmailBody(): String {
@@ -88,7 +91,7 @@ class SettingsPresenter @Inject internal constructor(
 				"F-Droid"
 			}
 			"lite" -> {
-				"F-Droid Main Repo"
+				"Unofficial Free Lite"
 			}
 			"accrescent" -> {
 				"Accrescent"
@@ -102,7 +105,7 @@ class SettingsPresenter @Inject internal constructor(
 			.append("### ").append(context().getString(R.string.error_report_section_summary)).append('\n') //
 			.append(context().getString(R.string.error_report_summary_description)).append("\n\n") //
 			.append("### ").append(context().getString(R.string.error_report_section_device)).append("\n") //
-			.append("Cryptomator v").append(BuildConfig.VERSION_NAME).append(" (").append(BuildConfig.VERSION_CODE).append(") ").append(variant).append("\n") //
+			.append("Cryptomator Free v").append(BuildConfig.VERSION_NAME).append(" (").append(BuildConfig.VERSION_CODE).append(") ").append(variant).append("\n") //
 			.append("Android ").append(Build.VERSION.RELEASE).append(" / API").append(Build.VERSION.SDK_INT).append("\n") //
 			.append("Device ").append(Build.MODEL) //
 			.toString()

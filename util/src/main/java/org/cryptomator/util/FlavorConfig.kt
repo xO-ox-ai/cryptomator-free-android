@@ -2,6 +2,10 @@ package org.cryptomator.util
 
 object FlavorConfig {
 
+	/** Personal source build with permanent access and no purchase or trial flow. */
+	val isFreeBuild: Boolean = BuildConfig.FREE_BUILD
+	val hasFullAccess: Boolean get() = isFreeBuild || isPremiumFlavor
+
 	/** The premium (paid) Play Store edition ships with full access, so license enforcement is bypassed. */
 	val isPremiumFlavor: Boolean = BuildConfig.FLAVOR == "playstore"
 

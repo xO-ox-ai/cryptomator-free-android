@@ -117,7 +117,7 @@ class VaultListPresenter @Inject constructor( //
 			return
 		}
 
-		if (FlavorConfig.isFreemiumFlavor) {
+		if (FlavorConfig.isFreemiumFlavor && !FlavorConfig.isFreeBuild) {
 			val alreadyKnownExpired = sharedPreferencesHandler.isTrialExpired()
 			val trialState = licenseEnforcer.evaluateTrialState()
 			if (!alreadyKnownExpired && trialState.isExpired && !licenseEnforcer.hasPaidLicense()) {
@@ -144,7 +144,7 @@ class VaultListPresenter @Inject constructor( //
 	// While Accrescent counted as a premium flavor, Upgrade13To14 dropped its users' license token but kept their mail.
 	// Clearing the mail shows the dialog only once and stops Settings from presenting the lost license as active.
 	private fun showLicenseLostDialogIfNeeded() {
-		if (FlavorConfig.isAccrescentFlavor && sharedPreferencesHandler.licenseToken().isEmpty()) {
+		if (!FlavorConfig.isFreeBuild && FlavorConfig.isAccrescentFlavor && sharedPreferencesHandler.licenseToken().isEmpty()) {
 			val mail = sharedPreferencesHandler.mail()
 			if (mail.isNotEmpty()) {
 				sharedPreferencesHandler.setMail("")
@@ -214,7 +214,7 @@ class VaultListPresenter @Inject constructor( //
 			sharedPreferencesHandler.vaultsRemovedDuringMigration(null)
 		}
 
-		if (FlavorConfig.isApkStoreFlavor && sharedPreferencesHandler.doUpdate()) {
+		if (!FlavorConfig.isFreeBuild && FlavorConfig.isApkStoreFlavor && sharedPreferencesHandler.doUpdate()) {
 			checkForAppUpdates()
 		}
 

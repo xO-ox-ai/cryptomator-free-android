@@ -1,13 +1,12 @@
 name: Bug Report
 description: Create a report to help us improve
-type: "Bug"
 body:
   - type: checkboxes
     id: terms
     attributes:
       label: Please agree to the following
       options:
-      - label: I have searched [existing issues](https://github.com/cryptomator/android/issues?q=) for duplicates
+      - label: I have searched [existing issues](https://github.com/xO-ox-ai/cryptomator-free-android/issues?q=) for duplicates
         required: true
       - label: I agree to follow this project's [Code of Conduct](https://github.com/cryptomator/.github/blob/main/CODE_OF_CONDUCT.md)
         required: true
@@ -26,7 +25,7 @@ body:
         What software is involved? Please provide version numbers as well.
       value: |
           - Android: [Version shown in the settings of Android"]
-          - Cryptomator: [Version shown in the settings of Cryptomator]
+          - Cryptomator Free: [Version shown in the settings of Cryptomator]
           - …
       render: markdown
     validations:

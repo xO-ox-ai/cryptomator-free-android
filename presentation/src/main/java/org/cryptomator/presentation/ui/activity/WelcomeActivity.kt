@@ -133,7 +133,7 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>(ActivityWelcomeBind
 	private fun setupPages() {
 		pages.clear()
 		pages.add(FragmentPage.Intro)
-		if (!FlavorConfig.isPremiumFlavor) {
+		if (!FlavorConfig.hasFullAccess) {
 			pages.add(FragmentPage.License)
 		}
 		pages.add(FragmentPage.Notifications)
@@ -211,7 +211,7 @@ class WelcomeActivity : BaseActivity<ActivityWelcomeBinding>(ActivityWelcomeBind
 
 	private fun validate(intent: Intent?) {
 		val data = intent?.data
-		if (data != null && !FlavorConfig.isPremiumFlavor) {
+		if (data != null && !FlavorConfig.hasFullAccess) {
 			welcomePresenter.validate(data)
 		}
 	}

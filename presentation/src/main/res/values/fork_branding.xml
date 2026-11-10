@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="fork_intro_body">Cryptomator Free protects your files using the Cryptomator vault format.\n\nLocal storage, WebDAV and S3 are available with permanent read/write access. No trial, subscription or license key is required.</string>
+	<string name="fork_website_title">Cryptomator Free project</string>
+	<string name="fork_about_title">About Cryptomator Free</string>
+	<string name="fork_unofficial_title">Unofficial, independent fork</string>
+	<string name="fork_unofficial_notice">Cryptomator Free 0.1.0 is an unofficial fork of Cryptomator Android 2.2.0-SNAPSHOT (commit 4ebaeb9a, 2026-11-05), with permanent read/write access. It is not affiliated with, endorsed by, or supported by Cryptomator or Skymatic. This is a preview release.</string>
+	<string name="fork_upstream_title">Upstream: Cryptomator Android</string>
+	<string name="fork_source_title">Cryptomator Free source code</string>
+</resources>

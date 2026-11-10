@@ -10,8 +10,22 @@ if (!liteFlavor()) {
 	delete new File('src/main/res/raw/auth_config_onedrive.json')
 }
 
+def forkSigning = new Properties()
+def forkSigningPath = System.getenv('FORK_SIGNING_PROPERTIES')
+if (forkSigningPath) {
+	file(forkSigningPath).withInputStream { forkSigning.load(it) }
+}
+
 android {
 	signingConfigs {
+		if (!forkSigning.isEmpty()) {
+			fork {
+				storeFile file(forkSigning.getProperty('storeFile'))
+				storePassword forkSigning.getProperty('storePassword')
+				keyAlias forkSigning.getProperty('keyAlias')
+				keyPassword forkSigning.getProperty('keyPassword')
+			}
+		}
 		debug {
 			keyAlias 'androiddebugkey'
 			keyPassword 'android'
@@ -26,6 +40,9 @@ android {
 	buildToolsVersion globalConfiguration["androidBuildToolsVersion"]
 
 	defaultConfig {
+		if (providers.gradleProperty('freeBuild').getOrElse('true').toBoolean()) {
+			resValue 'string', 'app_name', 'Cryptomator Free'
+		}
 		minSdkVersion globalConfiguration["androidMinSdkVersion"]
 		targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
 
@@ -56,6 +73,9 @@ android {
 
 	buildTypes {
 		release {
+			if (!forkSigning.isEmpty()) {
+				signingConfig signingConfigs.fork
+			}
 			crunchPngs false
 			minifyEnabled false
 			shrinkResources false

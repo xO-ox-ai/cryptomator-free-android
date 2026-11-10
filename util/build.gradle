@@ -9,6 +9,7 @@ android {
 	buildToolsVersion globalConfiguration["androidBuildToolsVersion"]
 
 	defaultConfig {
+		buildConfigField 'boolean', 'FREE_BUILD', providers.gradleProperty('freeBuild').getOrElse('true').toBoolean().toString()
 		minSdkVersion globalConfiguration["androidMinSdkVersion"]
 		targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
 
